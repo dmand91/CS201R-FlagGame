@@ -6,55 +6,47 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="./javascripts/script.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 </head>
 <body>
  <div id='app' ng-app='app' ng-controller='mainCtrl'>
 	<h1>Flag Game</h1>
 
 <div id = "gameWindow">
-	<button id="generateFlag" type="button" ng-click = "generateFlag()">Start Game</button>
+	<button id="generateFlag" type="button" class = "btn btn-primary" ng-click = "generateFlag()">Start Game</button>
 	<div id = "flagImage"></div>
 	<!--<div id = "countryName">{{countryName}}</div>-->
-   <h2>Which Country does this Flag belong to?</h2><br>
+   <h2 id = "which" ></h2><br>
    <ul  id='optionList'>
       <li ng-repeat="option in optionsList | orderBy:'+value'" class='optionsList'>
-        <button class ='optionButton' type ="button"  ng-click = "checkAnswer(option.value)">{{option.value}}</button>
+        <button class ='btn btn-danger'id ="optionbutton" type ="button"  ng-click = "checkAnswer(option.value)">{{option.value}}</button>
       </li>
     </ul>
-
+    <h3 id = "currentScore"></h3>
+    <h3 id = "questionNumber"></h3>
 </div>
 
 
-
-
-
-<h1> Enter A New User</h1>
-  <form id="newUser" ng-submit="addUser()">
-    Name: <input type="text" ng-model="Name" value=""><br>
-    HighScore: <input type="number" ng-model="highScore" value=""><br>
-    CurrentScore: <input type="number" ng-model="currentScore" value=""><br>
-    <input type="submit" value="Submit">
-  </form>
-
-    <div ng-if='!user.length' class='no-user center stretch'>
-      <h1 class='h1'>
-        Set up your endpoint at `/user` to get this view working
-      </h1>
-    </div>
-
+<div id=LeaderBoard>
     <ul ng-if='user.length' class='list center stretch'>
-      <li ng-repeat='p in user' class='user'>
-        <h1>{{ p.name }}</h1>
-	<h2>{{p.highScore}}</h2>
-	<h3>{{p.currentScore}}</h3>
+	 <h2> High Scores </h2>
+
+      <li ng-repeat="p in user | orderBy:'-highScore' " class='user'>
+        <h2>{{ p.name }}: {{p.highScore}}</h2>
       </li>
     </ul>
 
   </div>
 
 </body>
-
-
 
 
 </html>

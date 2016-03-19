@@ -32,9 +32,10 @@ function userFetcher ($http) {
 }
 
 function mainCtrl ($scope, userFetcher) {
-
+  $scope.question = 1;
+  $scope.highScore = 0;
   $scope.user = [];
-  $scope.optionsList = [{value:"test"}];
+  $scope.optionsList = [];
   $scope.flagShowing = false;
   $scope.countryName = "";
  $scope.generateOptions = function() {
@@ -47,13 +48,13 @@ function mainCtrl ($scope, userFetcher) {
     for(var i =0; i<5; i++){	
 	grabNewOption(function(result){
 		//console.log("new option: "+result);
-		console.log(i);
+	//	console.log(i);
              $scope.optionsList.push({value:result});	
 		//console.log("size of array: "+$scope.optionsList.length);	
           if(i==5) {
-	     console.log($scope.optionsList);
+	    // console.log($scope.optionsList);
             $scope.flagShowing = true;
-            console.log("flag showing: "+ $scope.flagShowing);
+          //  console.log("flag showing: "+ $scope.flagShowing);
 			
             }   
 			$scope.$apply();
@@ -61,12 +62,12 @@ function mainCtrl ($scope, userFetcher) {
 
       
 	}
-
+ 
   }
  
 
    $scope.addUser = function() {
-      var formData = {name:$scope.Name,highScore:$scope.highScore,currentScore:$scope.currentScore};
+      var formData = {name:$scope.Name,highScore:$scope.highScore};
       console.log(formData);
       userFetcher.post(formData); // Send the data to the back end
       $scope.user.push(formData); // Update the model
@@ -144,8 +145,11 @@ $scope.generateFlag =function() {
 	/////////////
 		
             $("#flagImage").html("<img id = 'mainImageFlag' src='"+imageUrl+"'>");
-             //$("#countryName").html("<p>"+$scope.countryName+"</p>");
-
+            $("#which").html("Which Country does this Flag belong to?");   
+	    $("#currentScore").html("Your Current Score: " +$scope.highScore);
+  	    $("#questionNumber").html("Question: " + $scope.question + " / 20");
+		 //$("#countryName").html("<p>"+$scope.countryName+"</p>");
+	    $("#generateFlag").style.visibility="hidden";
 	    $scope.flagShowing=true;
 	    $scope.generateOptions();	
 	    $scope.$apply();
@@ -166,10 +170,19 @@ $scope.generateFlag =function() {
 	console.log("real answer: " +$scope.countryName);
        if(answer==$scope.countryName){
 		console.log("correct!");
-		$scope.generateFlag();
+		$scope.question++;
+		console.log($scope.question);
+		$scope.highScore+=5;
+		console.log("SCORE: " + $scope.highScore);
+		if ($scope.question != 6) {
+                   $scope.generateFlag();
+		} else {
+		 console.log("GAME ENDED");
+		  $scope.endGame();
+		}
 	} 
 	else{
-	
+		$scope.highScore-=3;
 	console.log("INcorrect! TRY AGAIN");
 	}	
 	
@@ -177,6 +190,26 @@ $scope.generateFlag =function() {
 
    } ; 
 
+  $scope.endGame = function() {
+	$scope.Name = prompt("Game Over. Your score was " + $scope.highScore + ". Please enter your name below.", "Your Name");
+	if ($scope.Name ==null) {
+		$scope.endGame();
+	} else {
+	   $scope.addUser();	
+	   $scope.reset();
+	}
+  }
+
+  $scope.reset = function() {
+	$scope.question = 1;
+        $scope.highScore = 0;
+	$scope.optionsList = [];
+	$("#flagImage").html("");
+	 $("#which").html("");
+	$("#currentScore").html("");
+            $("#questionNumber").html("");
+	$("#generateFlag").style.visibility="visible";
+  }
 
   }
 
