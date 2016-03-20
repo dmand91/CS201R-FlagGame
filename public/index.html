@@ -14,30 +14,43 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'  type='text/css'>
 
 </head>
 <body>
  <div id='app' ng-app='app' ng-controller='mainCtrl'>
-	<h1>Flag Game</h1>
-
+	<h1 id='game'>Flag Game</h1>
+	<br>
 <div id = "gameWindow">
-	<button id="generateFlag" type="button" class = "btn btn-primary" ng-click = "generateFlag()">Start Game</button>
+	<button id="generateFlag" type="button" class = "btn btn-primary btn-lg center-block " ng-click = "generateFlag()">Start Game</button>
+	<div id = "worldMap"></div>
+
+	<h2 id = "which" ></h2>
+	<br>
 	<div id = "flagImage"></div>
 	<!--<div id = "countryName">{{countryName}}</div>-->
-   <h2 id = "which" ></h2><br>
+	<br>
    <ul  id='optionList'>
       <li ng-repeat="option in optionsList | orderBy:'+value'" class='optionsList'>
-        <button class ='btn btn-danger'id ="optionbutton" type ="button"  ng-click = "checkAnswer(option.value)">{{option.value}}</button>
+        <button class ='btn btn-success'id ="optionbutton" type ="button"  ng-click = "checkAnswer(option.value)">{{option.value}}</button>
+      <br>
       </li>
+	<br>
     </ul>
+
+<div id = "answerResponse">
+
+    <h3 id = "response"></h3>
     <h3 id = "currentScore"></h3>
     <h3 id = "questionNumber"></h3>
+</div>
+
 </div>
 
 
 <div id=LeaderBoard>
     <ul ng-if='user.length' class='list center stretch'>
-	 <h2> High Scores </h2>
+	 <h2 style="80px"> High Scores </h2>
 
       <li ng-repeat="p in user | orderBy:'-highScore' " class='user'>
         <h2>{{ p.name }}: {{p.highScore}}</h2>

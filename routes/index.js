@@ -131,24 +131,24 @@ var user = [
     highScore: 32,
   },
   {
-    name: 'Charmander',
+    name: 'Sally',
     highScore: 31,
 
   },
   {
-    name: 'Mew',
+    name: 'Sofie',
     highScore: 12,
   },
   {
-    name: 'Cubone',
+    name: 'Brooke',
     highScore: 22,
   },
   {
-    name: 'Cleffa',
+    name: 'Madison',
     highScore: 38,
   },
   {
-    name: 'Gengar',
+    name: 'Dallin',
     highScore: 24,
   }
 ];

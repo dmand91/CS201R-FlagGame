@@ -143,13 +143,14 @@ $scope.generateFlag =function() {
 
 
 	/////////////
-		
+	$("#which").html("Which Country does this Flag belong to?");	
             $("#flagImage").html("<img id = 'mainImageFlag' src='"+imageUrl+"'>");
-            $("#which").html("Which Country does this Flag belong to?");   
-	    $("#currentScore").html("Your Current Score: " +$scope.highScore);
-  	    $("#questionNumber").html("Question: " + $scope.question + " / 20");
+//            $("#which").html("Which Country does this Flag belong to?");   
+//	    $("#currentScore").html("Your Current Score: " +$scope.highScore);
+//  	    $("#questionNumber").html("Question: " + $scope.question + " / 20");
 		 //$("#countryName").html("<p>"+$scope.countryName+"</p>");
-	    $("#generateFlag").style.visibility="hidden";
+	   // $("#generateFlag").style.visibility="hidden";
+	    $("#generateFlag").hide();
 	    $scope.flagShowing=true;
 	    $scope.generateOptions();	
 	    $scope.$apply();
@@ -171,6 +172,7 @@ $scope.generateFlag =function() {
        if(answer==$scope.countryName){
 		console.log("correct!");
 		$scope.question++;
+		$("#response").html("Correct!");
 		console.log($scope.question);
 		$scope.highScore+=5;
 		console.log("SCORE: " + $scope.highScore);
@@ -183,12 +185,18 @@ $scope.generateFlag =function() {
 	} 
 	else{
 		$scope.highScore-=3;
+		$("#response").html("Incorrect. -3 points");
+		 $("#currentScore").html("Your Current Score: " +$scope.highScore);
+            $("#questionNumber").html("Question: " + $scope.question + " / 20");
 	console.log("INcorrect! TRY AGAIN");
 	}	
 	
  
 
    } ; 
+
+    
+
 
   $scope.endGame = function() {
 	$scope.Name = prompt("Game Over. Your score was " + $scope.highScore + ". Please enter your name below.", "Your Name");
@@ -208,8 +216,11 @@ $scope.generateFlag =function() {
 	 $("#which").html("");
 	$("#currentScore").html("");
             $("#questionNumber").html("");
+	$("#generateFlag").show();
+/*
 	$("#generateFlag").style.visibility="visible";
-  }
+*/  
+}
 
   }
 
